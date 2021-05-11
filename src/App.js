@@ -2,10 +2,10 @@ import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Login from './pages/login';
-import Ligue from './pages/ligue';
+import Ligue from './component/ligue';
 import Match from './component/Match';
 import Equipe from './component/Equipe';
-import Home from './pages/home';
+import Home from './component/home';
 
 function App() {
   return (
@@ -20,14 +20,12 @@ function App() {
           <Route exact path='/'>
             <Login />
           </Route>
-          <Route exact path='/home'>
+          <Route path='/home'>
             <Home />
           </Route>
-          <Route path='/:id/ligues'>
-            <Ligue />
-          </Route>
-          <Route path="/ligues/:id" component={Match}></Route>
-          <Route path="/equipe/:id" component={Equipe}></Route>
+          <Route path="/div/:game" component={Ligue}></Route>
+          <Route path="/:game/ligues/:id" component={Match}></Route>
+          <Route path="/:game/equipe/:id" component={Equipe}></Route>
       </Switch>
     </Router>
   );

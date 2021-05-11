@@ -10,7 +10,7 @@ class Equipe extends Component{
     } 
  
     async componentDidMount(){
-        const reponse = await fetch('https://api.pandascore.co/rl/teams?filter[id]='+this.props.match.params.id+'&token=rRcdDE_NFYnsdPhB_SgRMlITTj29-tgl2hVxZvfwmvlb5DdDghU');
+        const reponse = await fetch('https://api.pandascore.co/'+this.props.match.params.game+'/teams?filter[id]='+this.props.match.params.id+'&token=rRcdDE_NFYnsdPhB_SgRMlITTj29-tgl2hVxZvfwmvlb5DdDghU');
         const data = await reponse.json();
         this.setState({
             equipes: data

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { Component, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -12,11 +11,10 @@ class Ligue extends Component{
     }
 
     async componentDidMount(){
-        const reponse = await fetch('https://api.pandascore.co/rl/leagues?token=rRcdDE_NFYnsdPhB_SgRMlITTj29-tgl2hVxZvfwmvlb5DdDghU');
+        const reponse = await fetch('https://api.pandascore.co/'+this.props.match.params.game+'/leagues?token=rRcdDE_NFYnsdPhB_SgRMlITTj29-tgl2hVxZvfwmvlb5DdDghU');
         const data = await reponse.json();
         this.setState({
-            ligues: data
-            
+            ligues: data,
         })
     }
 
@@ -24,7 +22,7 @@ class Ligue extends Component{
         return(
             <div>
                 {this.state.ligues.map(ligue => 
-                    <Link key={ligue.id} to={`/ligues/${ligue.id}`}>
+                    <Link key={ligue.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/ligues/${ligue.id}`}>
                         <img src={ligue.image_url}></img>
                         <p>{ligue.name}</p>
                     </Link>

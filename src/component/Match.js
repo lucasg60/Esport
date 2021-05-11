@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +11,7 @@ class Match extends Component{
     } 
  
     async componentDidMount(){
-        const reponse = await fetch('https://api.pandascore.co/rl/matches?filter[league_id]='+this.props.match.params.id+'&token=rRcdDE_NFYnsdPhB_SgRMlITTj29-tgl2hVxZvfwmvlb5DdDghU');
+        const reponse = await fetch('https://api.pandascore.co/'+this.props.match.params.game+'/matches?filter[league_id]='+this.props.match.params.id+'&token=rRcdDE_NFYnsdPhB_SgRMlITTj29-tgl2hVxZvfwmvlb5DdDghU');
         const data = await reponse.json();
         this.setState({
             matches: data
@@ -29,7 +28,7 @@ class Match extends Component{
                     <p>{matche.name}</p>
                     
                     {matche.opponents.map(opponent =>
-                        <Link key={opponent.opponent.id} to={`/equipe/${opponent.opponent.id}`}>
+                        <Link key={opponent.opponent.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/equipe/${opponent.opponent.id}`}>
                             <img src={opponent.opponent.image_url}></img>
                         </Link>
                     )}
