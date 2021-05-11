@@ -2,12 +2,12 @@
   "users": [
     {
       "email": "lucasg60@hotmail.fr",
-      "password": "$2a$10$w2chq8JytUdhuuR2.p1IguNe/Kv8tF3RlTjDZLz3VFT9PbBJE.7WO",
+      "password": "test",
       "id": 1
     },
     {
       "email": "user-0@example.com",
-      "password": "$2a$10$LIpmSRihR7uwWKEOvp9dUerLyrfrFT8wQ4yMQvS35KaFx2mtmRMAi",
+      "password": "test",
       "id": 2
     }
   ]
