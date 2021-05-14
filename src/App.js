@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Switch, Route, Link, useHistory  } from 'react-router-dom';
 import Login from './pages/login';
 import Ligue from './component/ligue';
 import Match from './component/Match';
@@ -10,6 +9,7 @@ import Home from './component/home';
 function App() {
   const handleLogout = () => {
     localStorage.clear();
+    window.location.href = "/";
   };
   return (
     <Router>

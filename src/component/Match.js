@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, Route } from 'react-router-dom';
+import Login from '../pages/login';
 
 class Match extends Component{
 
@@ -20,28 +21,39 @@ class Match extends Component{
     }
 
   render() {
-    return(
-        <div>
-            
-            {this.state.matches.map(matche =>
-                <div style={{border:'1px solid black'}}>
-                    <p>{matche.name}</p>
-                    
-                    {matche.opponents.map(opponent =>
-                        <Link key={opponent.opponent.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/equipe/${opponent.opponent.id}`}>
-                            <img src={opponent.opponent.image_url}></img>
-                        </Link>
-                    )}
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser == null) {
+        return (
+            <div>
+                <Route exact path="/home">
+                    <Redirect to="/" /> : <Login />
+                </Route>
+            </div>
+        );
+    } else {
+        return(
+            <div>
+                
+                {this.state.matches.map(matche =>
+                    <div style={{border:'1px solid black'}}>
+                        <p>{matche.name}</p>
+                        
+                        {matche.opponents.map(opponent =>
+                            <Link key={opponent.opponent.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/equipe/${opponent.opponent.id}`}>
+                                <img src={opponent.opponent.image_url}></img>
+                            </Link>
+                        )}
 
-                    {matche.winner != null &&
-                        <p>Winner : {matche.winner.name}</p>
-                    }
-                    
-                    
-                </div>
-            )}
-        </div>
-    )
+                        {matche.winner != null &&
+                            <p>Winner : {matche.winner.name}</p>
+                        }
+                        
+                        
+                    </div>
+                )}
+            </div>
+        )
+    }
   }
 }
 

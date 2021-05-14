@@ -3,12 +3,19 @@
     {
       "email": "lucasg60@hotmail.fr",
       "password": "test",
-      "id": 1
+      "id": 1,
+      "favoris": []
     },
     {
-      "email": "user-0@example.com",
+      "email": "test@test.fr",
       "password": "test",
-      "id": 2
+      "id": 2,
+      "favoris": [
+        4556,
+        4553,
+        4553,
+        4539
+      ]
     }
   ]
 }

@@ -1,68 +1,7 @@
-// import React, { Component } from "react";
-// import Form from "react-bootstrap/Form";
-// import '../App.css';
-// import axios from 'axios';
-
-// export default class Login extends Component {
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       email: "",
-//       password: ""
-//     };
-//   }
-
-//   connexion = () =>{
-//     const mail = this.state.email;
-//     const pass = this.state.password;
-//     const info = { mail, pass };
-//     axios({
-//         method: 'post',
-//         url: 'http://localhost:3003/login',
-//         data: info
-//     })
-//     .then(function (reponse) {
-//         console.log(reponse);
-//     })
-//     .catch(function (erreur) {
-//         console.log(erreur);
-//     });
-//   }
-
-//   render() {
-//     return (
-//       <div className="Login">
-//         <Form>
-//           <Form.Group size="lg" controlId="email">
-//             <Form.Label>Email</Form.Label>
-//             <Form.Control
-//               autoFocus
-//               type="email"
-//               value={this.state.email}
-//               onChange={(e) => this.setState({ email: e.target.value })}
-//             />
-//           </Form.Group>
-//           <Form.Group size="lg" controlId="password">
-//             <Form.Label>Password</Form.Label>
-//             <Form.Control
-//               type="password"
-//               value={this.state.password}
-//               onChange={(e) => this.setState({ password: e.target.value })}
-//             />
-//           </Form.Group>
-//           <button block size="lg" onClick={() => this.connexion()}>
-//             Login
-//           </button>
-//         </Form>
-//       </div>
-//     )
-//   }
-// }
-
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Home from '../component/home';
+import jwt_decode from "jwt-decode";
 
 const App = () => {
   const [username, setUsername] = useState("");
@@ -79,13 +18,21 @@ const App = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const reponse = await fetch('http://localhost:3003/users');
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: username, password: password })
+    };
+    const reponse = await fetch('http://localhost:3003/login', requestOptions);
     const data = await reponse.json();
-    for (let i = 0; i < data.length; i++) {
-      if(data[i].email == username && data[i].password == password){
-        setUser(data[i]);
-        localStorage.setItem("user", JSON.stringify(data[i]));
-      }
+    if(data.accessToken != null){
+      setUser(data.accessToken);
+      localStorage.setItem("user", JSON.stringify(data.accessToken));
+      localStorage.setItem("email", username);
+      localStorage.setItem("password", password);
+      var decoded = jwt_decode(data.accessToken);
+      localStorage.setItem("id", decoded.sub);
     }
   };
 
