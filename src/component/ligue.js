@@ -4,11 +4,16 @@ import Login from '../pages/login';
 
 class Ligue extends Component{
 
+    handleCheckboxChange = event => {
+        this.setState({ checked: event.target.checked })
+    }
+
     constructor(props) {
         super(props);
         this.state = {
             ligues: [],
             data: [],
+            checked: true
         }
     }
 
@@ -25,12 +30,31 @@ class Ligue extends Component{
         this.setState({
             data: data3,
         })
+
+        const fav = [];
+        for (let a = 0; a < this.state.ligues.length; a++) {
+            for (let b = 0; b < this.state.data.length; b++) {
+                if(this.state.ligues[a].id == this.state.data[b]) {
+                    fav.push(this.state.ligues[a]);
+                    this.state.ligues.splice(a, 1)
+                }
+            }
+        }
+        this.setState({
+            data: fav,
+        })
+
     }
 
     async handleInputChange(event) {
+        
         const reponse1 = await fetch('http://localhost:3003/users/'+localStorage.getItem("id"));
         const data1 = await reponse1.json();
-        
+        if(document.getElementById(event).checked == true){
+            this.setState({ checked: false });
+        } else {
+            this.setState({ checked: true });
+        }
         if(document.getElementById(event).checked == true){
             data1.favoris.push(event);
         } else {
@@ -38,7 +62,7 @@ class Ligue extends Component{
                                    
                 if ( data1.favoris[i] === event) { 
                     data1.favoris.splice(i, 1);
-                    i--; 
+                    i--;
                 }
             }
         }
@@ -50,6 +74,9 @@ class Ligue extends Component{
         };
         const reponse = await fetch('http://localhost:3003/users/'+localStorage.getItem("id"), requestOptions);
         const data = await reponse.json();
+
+        
+        
     }
 
     render() {
@@ -66,47 +93,34 @@ class Ligue extends Component{
             return(
                 <div>
                     <div id="favoris">
-                        <p>Favoris</p>     
+                        <p>Favoris</p>  
+                        {this.state.data.map(datas => 
+                            <div>
+                                <div>
+                                    <input id={datas.id} checked={this.state.checked} type="checkbox" onChange={() => this.handleInputChange(datas.id)} />
+                                    <Link key={datas.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/ligues/${datas.id}`}>
+                                        <img src={datas.image_url}></img>
+                                        <p>{datas.name}</p>
+                                    </Link>
+                                </div>
+                            </div>
+                        )}
                     </div>
                     <div style={{width:'100%', border: '2px solid black'}}></div>
-                    {this.state.ligues.map(ligue => 
-                        <div>
-
-                            {(() => {
-                                if(this.state.data.length == 0) {
-                                    return (
-                                        <div>
-                                            <input id={ligue.id} type="checkbox" onChange={() => this.handleInputChange(ligue.id)} />
-                                            <Link key={ligue.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/ligues/${ligue.id}`}>
-                                                <img src={ligue.image_url}></img>
-                                                <p>{ligue.name}</p>
-                                            </Link>
-                                        </div>
-                                    )
-                                } else {
-                                    for (let a = 0; a < this.state.data.length; a++) {
-
-                                        if (ligue.id == this.state.data[a]) {
-                                            return (
-                                                <div>someCase</div>
-                                            )
-                                        } else {
-                                            return (
-                                                <div>
-                                                    <input id={ligue.id} type="checkbox" onChange={() => this.handleInputChange(ligue.id)} />
-                                                    <Link key={ligue.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/ligues/${ligue.id}`}>
-                                                        <img src={ligue.image_url}></img>
-                                                        <p>{ligue.name}</p>
-                                                    </Link>
-                                                </div>
-                                            )
-                                        }
-                                    }
-                                }
-                            })()}
-                            
-                        </div>
-                    )}
+                    <div>
+                        {this.state.ligues.map(ligue => 
+                            <div>
+                                <div>
+                                    <input id={ligue.id} type="checkbox" onChange={() => this.handleInputChange(ligue.id)} />
+                                    <Link key={ligue.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/ligues/${ligue.id}`}>
+                                        <img src={ligue.image_url}></img>
+                                        <p>{ligue.name}</p>
+                                    </Link>
+                                </div>
+                            </div>
+                        )}
+                    </div>   
+                         
                 </div>
             )
         }

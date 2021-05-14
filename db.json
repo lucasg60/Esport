@@ -2,19 +2,10 @@
   "users": [
     {
       "email": "lucasg60@hotmail.fr",
-      "password": "test",
+      "password": "$2a$10$RSJBSsBQ1zHTJt4G6QyfgeY4Tb17LVD3hjxfN01Ji.UZWoMiMoqpu",
       "id": 1,
-      "favoris": []
-    },
-    {
-      "email": "test@test.fr",
-      "password": "test",
-      "id": 2,
       "favoris": [
-        4556,
-        4553,
-        4553,
-        4539
+        4556
       ]
     }
   ]
