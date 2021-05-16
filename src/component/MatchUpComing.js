@@ -8,6 +8,7 @@ class Match extends Component{
         this.state = {
             matchs: [],
             bet: [],
+            credit: 0
         }
     }
 
@@ -26,7 +27,8 @@ class Match extends Component{
             bet.push(data2.bet[z].id_match);
         }
         this.setState({
-            bet: bet
+            bet: bet,
+            credit: data2.credit
         })
     }
 
@@ -36,17 +38,29 @@ class Match extends Component{
         const data1 = await reponse1.json();
 
         var winner = "";
-        var mise = document.getElementsByClassName(event)[0].children[3].children[0].value;
-        if (document.getElementsByClassName(event)[0].children[1].children[0].checked == true) {
-            winner = document.getElementsByClassName(event)[0].children[1].children[0].id;
+        var name = "";
+        var mise = document.getElementsByClassName(event)[0].children[1].children[0].value;
+        if (document.getElementsByClassName(event)[0].children[0].children[0].children[0].checked == true) {
+            winner = document.getElementsByClassName(event)[0].children[0].children[0].children[0].id;
         } else {
-            winner = document.getElementsByClassName(event)[0].children[2].children[0].id;
+            winner = document.getElementsByClassName(event)[0].children[0].children[1].children[0].id;
+        }
+        
+        for (let l = 0; l < this.state.matchs.length; l++) {
+            for (let m = 0; m < this.state.matchs[l].opponents.length; m++) {
+                if(winner == this.state.matchs[l].opponents[m].opponent.id) {
+                    name = this.state.matchs[l].opponents[m].opponent.name;
+                }
+            }
         }
 
         var object = new Object();
         object.id_match = event;
         object.winner_id = winner;
         object.mise = mise;
+        object.name = name;
+        object.game = this.props.match.params.game;
+        
         
         if (data1.bet.length == 0) {
             data1.bet.push(object);
@@ -91,47 +105,24 @@ class Match extends Component{
             }
 
         }
-        
-    }
 
-    async verif() {
-        const reponse8 = await fetch('http://localhost:3003/users/'+localStorage.getItem("id"));
-        const data8 = await reponse8.json();
+        document.location.reload();
         
-        
-        for (let o = 0; o < data8.bet.length; o++) {
-            var match2 = data8.bet[o].id_match;
-            var winner2 = data8.bet[o].winner_id;
-            var mise2 = data8.bet[o].mise;
-
-            const reponse9 = await fetch('https://api.pandascore.co/rl/matches?token=rRcdDE_NFYnsdPhB_SgRMlITTj29-tgl2hVxZvfwmvlb5DdDghU&filter[id]='+match2);
-            const data9 = await reponse9.json();
-
-            if (data9[0].winner_id == winner2) {
-                const requestOptions6 = {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: localStorage.getItem("email"), password: localStorage.getItem("password"), credit: data8.credit+(mise2*2)})
-                };
-                const reponse6 = await fetch('http://localhost:3003/users/'+localStorage.getItem("id"), requestOptions6);
-            }
-            
-        }
     }
 
     render() {
         return(
             <div>
-                <button onClick={() => this.verif()}>Verifier paris</button>
                 {this.state.matchs.map(match =>
                     <div>
                         {match.opponents.length > 0 && 
-                            <div className={match.id}>
+                            <div class="ombre">
                                 <p className={"title-match"}>{match.name}</p>
-                                
+                                <div className={match.id}>
+                                    <div style={{margin: "50px 0", display: "flex" ,"justify-content": "center"}}>
                                     {match.opponents.map(opponent =>
                                         
-                                        <div>
+                                        <div class="team">
                                             {this.state.bet.indexOf(match.id) === -1 ? <input id={opponent.opponent.id} type="radio" name={match.id} value={opponent.opponent.id} /> : <div></div> }
                                             
                                             <Link key={opponent.opponent.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/equipe/${opponent.opponent.id}`}>
@@ -141,8 +132,10 @@ class Match extends Component{
                                         
                                         
                                     )}
-                                
-                                {this.state.bet.indexOf(match.id) === -1 ? <div><input type="number" /><button onClick={() => this.handleInputChange(match.id)}>Validez</button></div> : <div>Vous avez deja parier su ce match</div> }
+                                    </div>
+                                    
+                                    {this.state.bet.indexOf(match.id) === -1 ? <div class="mise"><input type="number" min="1" max={this.state.credit} /><button style={{"margin-top": "10px",width: "100%"}} onClick={() => this.handleInputChange(match.id)}>Validez</button></div> : <div class="mise">Vous avez deja parier sur ce match</div> }
+                                </div>
                                 
                             </div>
                         }

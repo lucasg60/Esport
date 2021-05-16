@@ -21,7 +21,7 @@ class Match extends Component{
 
     render() {
         return(
-            <div>
+            <div class="ombre" style={{"text-align": "center"}}>
                 {this.state.matchs.map(match =>
                     <div className={"match"}>
                         <p className={"title-match"}>{match.name}</p>

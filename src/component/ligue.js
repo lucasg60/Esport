@@ -75,7 +75,7 @@ class Ligue extends Component{
         const reponse = await fetch('http://localhost:3003/users/'+localStorage.getItem("id"), requestOptions);
         const data = await reponse.json();
 
-        
+        document.location.reload();
         
     }
 
@@ -92,31 +92,29 @@ class Ligue extends Component{
         } else {
             return(
                 <div>
+                    <h1>Favoris</h1> 
                     <div id="favoris">
-                        <p>Favoris</p>  
+                         
                         {this.state.data.map(datas => 
-                            <div>
-                                <div>
-                                    <input id={datas.id} checked={this.state.checked} type="checkbox" onChange={() => this.handleInputChange(datas.id)} />
-                                    <Link key={datas.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/ligues/${datas.id}`}>
-                                        <img src={datas.image_url}></img>
-                                        <p>{datas.name}</p>
-                                    </Link>
-                                </div>
+                            <div class="bloc">
+                                <input id={datas.id} checked={this.state.checked} type="checkbox" onChange={() => this.handleInputChange(datas.id)} />
+                                <Link key={datas.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/ligues/${datas.id}`}>
+                                    <img src={datas.image_url}></img>
+                                    <p>{datas.name}</p>
+                                </Link>
                             </div>
                         )}
                     </div>
-                    <div style={{width:'100%', border: '2px solid black'}}></div>
-                    <div>
+                    
+                    <div class="blocLigue">
+                        <h1>Ligues</h1>
                         {this.state.ligues.map(ligue => 
-                            <div>
-                                <div>
-                                    <input id={ligue.id} type="checkbox" onChange={() => this.handleInputChange(ligue.id)} />
-                                    <Link key={ligue.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/ligues/${ligue.id}`}>
-                                        <img src={ligue.image_url}></img>
-                                        <p>{ligue.name}</p>
-                                    </Link>
-                                </div>
+                            <div class="ligues">
+                                <input id={ligue.id} type="checkbox" onChange={() => this.handleInputChange(ligue.id)} />
+                                <Link key={ligue.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/ligues/${ligue.id}`}>
+                                    <img src={ligue.image_url}></img>
+                                    <p>{ligue.name}</p>
+                                </Link>
                             </div>
                         )}
                     </div>   

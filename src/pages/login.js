@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Home from '../component/home';
 import jwt_decode from "jwt-decode";
+import '../App.css';
 
 const App = () => {
   const [username, setUsername] = useState("");
@@ -9,6 +10,7 @@ const App = () => {
   const [user, setUser] = useState();
 
   useEffect(() => {
+    
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
@@ -47,9 +49,10 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div class="container">
+    
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username: </label>
+        <label htmlFor="username">Adresse mail: </label>
         <input
           type="text"
           value={username}
@@ -57,7 +60,7 @@ const App = () => {
           onChange={({ target }) => setUsername(target.value)}
         />
         <div>
-          <label htmlFor="password">password: </label>
+          <label htmlFor="password">Mot de passe: </label>
           <input
             type="password"
             value={password}
@@ -65,7 +68,7 @@ const App = () => {
             onChange={({ target }) => setPassword(target.value)}
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">connexion</button>
       </form>
     </div>
   );

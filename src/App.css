@@ -1,15 +1,107 @@
-@media all and (min-width: 480px) {
-  .Login {
-    padding: 60px 0;
-  }
-
-  .Login form {
-    margin: 0 auto;
-    max-width: 320px;
-  }
+body {
+  overflow-x: hidden;
 }
 
 img {
   width: 150px;
   height: 150px;
+}
+
+.nav-link{
+  list-style: none;
+  text-decoration: none;
+}
+
+.navbar-nav {
+  display: flex;
+  margin: 15px;
+  place-content: space-evenly;
+}
+
+button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.container{
+  width:400px;
+  margin:0 auto;
+  margin-top:10%;
+}
+
+form {
+  width:100%;
+  padding: 30px;
+  border: 1px solid #f1f1f1;
+  background: #fff;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.ombre{
+  border: 1px solid #f1f1f1;
+  background: #fff;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  margin: 0 auto;
+  width: 400px;
+  margin-top: 10%;
+}
+
+.jeux{
+  width: 400px;
+  margin: 1px 0;
+}
+
+#favoris {
+  border: 1px solid #f1f1f1;
+  background: #fff;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  display: flex;
+  justify-content: space-evenly;
+  margin: 5px;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.bloc {
+  margin: 5px;
+}
+
+.ligues{
+  margin: 5px;
+  border: 1px solid #f1f1f1;
+  background: #fff;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  text-align: center;
+  display: inline-block;
+}
+
+.blocLigue {
+  text-align: center;
+}
+
+.title-match {
+  text-align: center;
+}
+
+.team {
+  margin: 15px;
+}
+
+.mise {
+  text-align: center;
 }

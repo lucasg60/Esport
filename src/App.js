@@ -8,19 +8,21 @@ import Home from './component/home';
 import MatchPast from './component/MatchPast';
 import MatchUpComing from './component/MatchUpComing';
 import MatchRunning from './component/MatchRunning';
+import Bet from './component/Bet';
 
 function App() {
   const handleLogout = () => {
     localStorage.clear();
     window.location.href = "/";
   };
+  
   return (
     <Router>
 
-      <ul className="navbar-nav mr-auto">
-        <li><Link to={'/'} className="nav-link"> Login </Link></li>
-        <li><Link to={'/home'} className="nav-link"> Home </Link></li>
-        <button onClick={handleLogout}>logout</button>
+      <ul class="navbar-nav">
+        <Link to={'/home'} className="nav-link"><button class="nav-link"> Home </button></Link>
+        <Link to={'/bet'} className="nav-link"><button class="nav-link"> Mes paris </button></Link>
+        <button id="deco" onClick={handleLogout}>Déconnexion</button>
       </ul>
 
       <Switch>
@@ -29,6 +31,9 @@ function App() {
           </Route>
           <Route path='/home'>
             <Home />
+          </Route>
+          <Route path='/bet'>
+            <Bet />
           </Route>
           <Route path="/div/:game" component={Ligue}></Route>
           <Route path="/:game/ligues/:id" component={Match}></Route>
@@ -39,6 +44,7 @@ function App() {
       </Switch>
     </Router>
   );
+        
 }
 
 export default App;

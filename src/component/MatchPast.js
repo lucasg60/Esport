@@ -11,7 +11,7 @@ class Match extends Component{
     }
 
     async componentDidMount(){
-        const reponse = await fetch('https://api.pandascore.co/'+this.props.match.params.game+'/matches?filter[league_id]='+this.props.match.params.id+'&matches?sort[status]=finished'+'&token=rRcdDE_NFYnsdPhB_SgRMlITTj29-tgl2hVxZvfwmvlb5DdDghU');
+        const reponse = await fetch('https://api.pandascore.co/'+this.props.match.params.game+'/matches/past?filter[league_id]='+this.props.match.params.id+'&token=rRcdDE_NFYnsdPhB_SgRMlITTj29-tgl2hVxZvfwmvlb5DdDghU');
         const data = await reponse.json();
         this.setState({
             matchs: data
@@ -23,18 +23,19 @@ class Match extends Component{
         return(
             <div>
                 {this.state.matchs.map(match =>
-                    <div className={"match"}>
-                        <p className={"title-match"}>{match.name}</p>
-                        {match.opponents.map(opponent =>
-                            <Link key={opponent.opponent.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/equipe/${opponent.opponent.id}`}>
-                                <img id={"img-equipe"} src={opponent.opponent.image_url}></img>
-                            </Link>
-                        )}
-                        {match.winner != null &&
-                        <p className={"vainqueur"}>Vainqueur : {match.winner.name}</p>
-                        }
+                    <div class="ombre" style={{"text-align": "center"}}>
+                        <div className={"match"}>
+                            <p className={"title-match"}>{match.name}</p>
+                            {match.opponents.map(opponent =>
+                                <Link key={opponent.opponent.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/equipe/${opponent.opponent.id}`}>
+                                    <img id={"img-equipe"} src={opponent.opponent.image_url}></img>
+                                </Link>
+                            )}
+                            {match.winner != null &&
+                            <p className={"vainqueur"}>Vainqueur : {match.winner.name}</p>
+                            }
+                        </div>
                     </div>
-
                 )}
             </div>
         )

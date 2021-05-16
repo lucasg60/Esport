@@ -21,12 +21,14 @@ class Home extends Component{
                 </div>
             );
         } else {
-            var game = [{id:'rl', nom:'Rocket League'},{id:'lol', nom:'League of Legends'}];
+            var game = [{id:'rl', nom:'Rocket League'},{id:'lol', nom:'League of Legends'},{id:'csgo', nom:'CSGO'},{id:'dota2', nom:'Dota2'},{id:'valorant', nom:'Valorant'}];
             return(
             
-                <div>
+                <div class="ombre">
                     {game.map(game => 
-                        <Link key={game.id} to={`/div/${game.id}`}>{game.nom}</Link>
+                        
+                        <Link class="lien" key={game.id} to={`/div/${game.id}`}><button class="jeux">{game.nom}</button></Link>
+                            
                     )}
                     
                 </div>
