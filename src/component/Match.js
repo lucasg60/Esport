@@ -33,24 +33,17 @@ class Match extends Component{
     } else {
         return(
             <div>
-                
-                {this.state.matches.map(matche =>
-                    <div style={{border:'1px solid black'}}>
-                        <p>{matche.name}</p>
-                        
-                        {matche.opponents.map(opponent =>
-                            <Link key={opponent.opponent.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/equipe/${opponent.opponent.id}`}>
-                                <img src={opponent.opponent.image_url}></img>
-                            </Link>
-                        )}
 
-                        {matche.winner != null &&
-                            <p>Winner : {matche.winner.name}</p>
-                        }
-                        
-                        
-                    </div>
-                )}
+                <button>
+                    <Link class={"lien-jeux"} key='rl' id={this.props.match.params.id} to={`/${this.props.match.params.game}/past/${this.props.match.params.id}`}>Match passé</Link>
+                </button>
+                <button>
+                    <Link class={"lien-jeux"} key='rl' id={this.props.match.params.id} to={`/${this.props.match.params.game}/upcoming/${this.props.match.params.id}`}>Match à venir</Link>
+                </button>
+                <button>
+                    <Link class={"lien-jeux"} key='rl' id={this.props.match.params.id} to={`/${this.props.match.params.game}/running/${this.props.match.params.id}`}>Match en cours</Link>
+                </button>
+                
             </div>
         )
     }

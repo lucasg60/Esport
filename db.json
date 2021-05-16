@@ -2,10 +2,15 @@
   "users": [
     {
       "email": "lucasg60@hotmail.fr",
-      "password": "$2a$10$RSJBSsBQ1zHTJt4G6QyfgeY4Tb17LVD3hjxfN01Ji.UZWoMiMoqpu",
+      "password": "$2a$10$.u9W2TB5uZjj2bS0RaijRuA1oseh3P9bjf5jRYq0cdeYlnALcXnUG",
       "id": 1,
+      "credit": 100,
       "favoris": [
-        4556
+        4556,
+        4246
+      ],
+      "bet": [
+        
       ]
     }
   ]

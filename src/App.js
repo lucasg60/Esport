@@ -5,6 +5,9 @@ import Ligue from './component/ligue';
 import Match from './component/Match';
 import Equipe from './component/Equipe';
 import Home from './component/home';
+import MatchPast from './component/MatchPast';
+import MatchUpComing from './component/MatchUpComing';
+import MatchRunning from './component/MatchRunning';
 
 function App() {
   const handleLogout = () => {
@@ -29,6 +32,9 @@ function App() {
           </Route>
           <Route path="/div/:game" component={Ligue}></Route>
           <Route path="/:game/ligues/:id" component={Match}></Route>
+          <Route path="/:game/past/:id" component={MatchPast}></Route>
+          <Route path="/:game/upcoming/:id" component={MatchUpComing}></Route>
+          <Route path="/:game/running/:id" component={MatchRunning}></Route>
           <Route path="/:game/equipe/:id" component={Equipe}></Route>
       </Switch>
     </Router>
