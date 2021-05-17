@@ -83,32 +83,40 @@ class Bet extends Component{
                 </div>
             );
         } else {
-            return(
-                <div>
-                    
-                    <div style={{"text-align": "center", "margin": "50px 0"}}>
-                        <p>Mes crédits : {this.state.credits}</p>
-                        <button onClick={() => this.verif()}>Verifier paris</button>
+            if(this.state.bets.length == 0) {
+                return (
+                    <div style={{margin: "50px 0", display: "flex" ,"justify-content": "center"}}>
+                        <p>Vous n'avez pas fait de paris.</p>
                     </div>
-
-                    {this.state.bets.map((bet, index) =>
-                        <div class="ombre" style={{"text-align": "center"}}>
-                            <div>
-                                {this.state.matchs[index][0].opponents.map(opponent =>
-                                    <img src={opponent.opponent.image_url}></img>
-                                        
-                                )}
-                            </div>
-                            
-                            <p>Vous avez miser {bet.mise} crédits sur une victoire de {bet.name}</p>
-                            {this.state.matchs[index][0].winner === null ? <p>Ce match n'a pas encore été jouer</p> : <p>Vainqueur du match : {this.state.matchs[index][0].winner.acronym}</p> }
-
+                )
+            } else {
+                return(
+                    <div>
+                        
+                        <div style={{"text-align": "center", "margin": "50px 0"}}>
+                            <p>Mes crédits : {this.state.credits}</p>
+                            <button onClick={() => this.verif()}>Verifier paris</button>
                         </div>
 
-                    )}
-                        
-                </div>
-            )
+                        {this.state.bets.map((bet, index) =>
+                            <div class="ombre" style={{"text-align": "center"}}>
+                                <div>
+                                    {this.state.matchs[index][0].opponents.map(opponent =>
+                                        <img src={opponent.opponent.image_url}></img>
+                                            
+                                    )}
+                                </div>
+                                
+                                <p>Vous avez miser {bet.mise} crédits sur une victoire de {bet.name}</p>
+                                {this.state.matchs[index][0].winner === null ? <p>Ce match n'a pas encore été jouer</p> : <p>Vainqueur du match : {this.state.matchs[index][0].winner.acronym}</p> }
+
+                            </div>
+
+                        )}
+                            
+                    </div>
+                )
+            }
         }
     }
 }

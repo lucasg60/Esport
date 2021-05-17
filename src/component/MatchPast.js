@@ -19,26 +19,34 @@ class Match extends Component{
         })
     }
 
-    render() {
-        return(
-            <div>
-                {this.state.matchs.map(match =>
-                    <div class="ombre" style={{"text-align": "center"}}>
-                        <div className={"match"}>
-                            <p className={"title-match"}>{match.name}</p>
-                            {match.opponents.map(opponent =>
-                                <Link key={opponent.opponent.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/equipe/${opponent.opponent.id}`}>
-                                    <img id={"img-equipe"} src={opponent.opponent.image_url}></img>
-                                </Link>
-                            )}
-                            {match.winner != null &&
-                            <p className={"vainqueur"}>Vainqueur : {match.winner.name}</p>
-                            }
+    render() { 
+        if(this.state.matchs.length == 0) {
+            return (
+                <div style={{margin: "50px 0", display: "flex" ,"justify-content": "center"}}>
+                    <p>Il n'y a pas de match pour cette ligue.</p>
+                </div>
+            )
+        } else {
+            return(
+                <div>
+                    {this.state.matchs.map(match =>
+                        <div class="ombre" style={{"text-align": "center"}}>
+                            <div className={"match"}>
+                                <p className={"title-match"}>{match.name}</p>
+                                {match.opponents.map(opponent =>
+                                    <Link key={opponent.opponent.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/equipe/${opponent.opponent.id}`}>
+                                        <img id={"img-equipe"} src={opponent.opponent.image_url}></img>
+                                    </Link>
+                                )}
+                                {match.winner != null &&
+                                <p className={"vainqueur"}>Vainqueur : {match.winner.name}</p>
+                                }
+                            </div>
                         </div>
-                    </div>
-                )}
-            </div>
-        )
+                    )}
+                </div>
+            )
+        }
     }
 }
 export default Match;

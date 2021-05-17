@@ -9,6 +9,7 @@ import MatchPast from './component/MatchPast';
 import MatchUpComing from './component/MatchUpComing';
 import MatchRunning from './component/MatchRunning';
 import Bet from './component/Bet';
+import Register from './component/Register';
 
 function App() {
   const handleLogout = () => {
@@ -28,6 +29,9 @@ function App() {
       <Switch>
           <Route exact path='/'>
             <Login />
+          </Route>
+          <Route exact path='/register'>
+            <Register />
           </Route>
           <Route path='/home'>
             <Home />

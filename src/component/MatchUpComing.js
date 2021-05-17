@@ -111,39 +111,47 @@ class Match extends Component{
     }
 
     render() {
-        return(
-            <div>
-                {this.state.matchs.map(match =>
-                    <div>
-                        {match.opponents.length > 0 && 
-                            <div class="ombre">
-                                <p className={"title-match"}>{match.name}</p>
-                                <div className={match.id}>
-                                    <div style={{margin: "50px 0", display: "flex" ,"justify-content": "center"}}>
-                                    {match.opponents.map(opponent =>
-                                        
-                                        <div class="team">
-                                            {this.state.bet.indexOf(match.id) === -1 ? <input id={opponent.opponent.id} type="radio" name={match.id} value={opponent.opponent.id} /> : <div></div> }
+        if(this.state.matchs.length == 0) {
+            return (
+                <div style={{margin: "50px 0", display: "flex" ,"justify-content": "center"}}>
+                    <p>Il n'y a pas de match à venir pour cette ligue.</p>
+                </div>
+            )
+        } else {
+            return(
+                <div>
+                    {this.state.matchs.map(match =>
+                        <div>
+                            {match.opponents.length > 0 && 
+                                <div class="ombre">
+                                    <p className={"title-match"}>{match.name}</p>
+                                    <div className={match.id}>
+                                        <div style={{margin: "50px 0", display: "flex" ,"justify-content": "center"}}>
+                                        {match.opponents.map(opponent =>
                                             
-                                            <Link key={opponent.opponent.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/equipe/${opponent.opponent.id}`}>
-                                                <img id={"img-equipe"} src={opponent.opponent.image_url}></img>
-                                            </Link>
-                                        </div> 
+                                            <div class="team">
+                                                {this.state.bet.indexOf(match.id) === -1 ? <input id={opponent.opponent.id} type="radio" name={match.id} value={opponent.opponent.id} /> : <div></div> }
+                                                
+                                                <Link key={opponent.opponent.id} game={this.props.match.params.game} to={`/${this.props.match.params.game}/equipe/${opponent.opponent.id}`}>
+                                                    <img id={"img-equipe"} src={opponent.opponent.image_url}></img>
+                                                </Link>
+                                            </div> 
+                                            
+                                            
+                                        )}
+                                        </div>
                                         
-                                        
-                                    )}
+                                        {this.state.bet.indexOf(match.id) === -1 ? <div class="mise"><input type="number" min="1" max={this.state.credit} /><button style={{"margin-top": "10px",width: "100%"}} onClick={() => this.handleInputChange(match.id)}>Validez</button></div> : <div class="mise">Vous avez deja parier sur ce match</div> }
                                     </div>
                                     
-                                    {this.state.bet.indexOf(match.id) === -1 ? <div class="mise"><input type="number" min="1" max={this.state.credit} /><button style={{"margin-top": "10px",width: "100%"}} onClick={() => this.handleInputChange(match.id)}>Validez</button></div> : <div class="mise">Vous avez deja parier sur ce match</div> }
                                 </div>
-                                
-                            </div>
-                        }
-                    </div>
+                            }
+                        </div>
 
-                )}
-            </div>
-        )
+                    )}
+                </div>
+            )
+        }
     }
 }
 export default Match;

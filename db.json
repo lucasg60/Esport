@@ -2,34 +2,19 @@
   "users": [
     {
       "email": "lucasg60@hotmail.fr",
-      "password": "$2a$10$kYM5JNfA.iIyXDh76pqgu.oyLrX0vO5mQp3qnQLZ2wGnoDiX6UIcS",
+      "password": "$2a$10$1TDlUOgOHg.pjgKQJpWvVuJq8.br4w36z6wj5ctKAReu8Bzba8B3q",
       "id": 1,
-      "credit": 95,
+      "credit": 90,
       "favoris": [
         4445,
         4246,
         4363,
         4415,
         4589,
-        4586,
-        4581
+        4581,
+        4579
       ],
-      "bet": [
-        {
-          "id_match": 593250,
-          "winner_id": "127837",
-          "mise": "5",
-          "name": "los kogutos",
-          "game": "csgo"
-        },
-        {
-          "id_match": 593251,
-          "winner_id": "126514",
-          "mise": "5",
-          "name": "Pompa",
-          "game": "csgo"
-        }
-      ]
+      "bet": []
     }
   ]
 }
